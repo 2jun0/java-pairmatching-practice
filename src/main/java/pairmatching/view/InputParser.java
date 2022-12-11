@@ -19,8 +19,8 @@ public class InputParser {
         inputValidator.validateMissionSelectCommands(commands);
 
         return new MissionSelectCommandDTO(
-                Course.findByLabel(commands[0]),
-                Level.findByLabel(commands[1]),
-                Mission.findByLabel(commands[2]));
+                Course.findByLabel(commands[0].trim()),
+                Level.findByLabel(commands[1].trim()),
+                Mission.findByLabel(commands[2].trim()));
     }
 }

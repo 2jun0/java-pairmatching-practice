@@ -34,7 +34,13 @@ public enum Mission {
     }
 
     public static List<Mission> findByLevel(Level level) {
-        return Collections.unmodifiableList(levelToMissions.get(level));
+        List<Mission> missions = levelToMissions.get(level);
+
+        if (missions == null) {
+            return List.of();
+        }
+
+        return Collections.unmodifiableList(missions);
     }
 
     public static Mission findByLabel(String label) {

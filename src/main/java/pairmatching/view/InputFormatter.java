@@ -40,8 +40,8 @@ public class InputFormatter {
 
     private String formatMissionsForLevel(Level level) {
         String missionLabels = Mission.findByLevel(level).stream()
-                .map(Mission::label)
-                .collect(joining(" | "));
+                    .map(Mission::label)
+                    .collect(joining(" | "));
 
         return String.format("  - %s: %s", level.label(), missionLabels);
     }
