@@ -58,7 +58,7 @@ public class InputView {
         while (true) {
             try {
                 return supplier.get();
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 printLine("[ERROR] " + e.getMessage());
             }
         }
