@@ -13,16 +13,16 @@ public class InputView {
         this.inputFormatter = inputFormatter;
     }
 
-    public String inputMissionSelectCommand() {
-        return repeatUntilSuccess(this::tryInputMissionSelectCommand);
+    public String inputMissionSelectCommands() {
+        return repeatUntilSuccess(this::tryInputMissionSelectCommands);
     }
 
-    private String tryInputMissionSelectCommand() {
-        String formattedMessage = inputFormatter.formatInputMissionSelectCommand();
+    private String tryInputMissionSelectCommands() {
+        String formattedMessage = inputFormatter.formatInputMissionSelectCommands();
         printLine(formattedMessage);
 
-        String command = readLine();
-        return command;
+        String commands = readLine();
+        return commands;
     }
 
     public String inputFunctionSelectCommand() {

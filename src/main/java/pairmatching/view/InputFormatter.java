@@ -9,17 +9,17 @@ import pairmatching.domain.Mission;
 
 public class InputFormatter {
 
-    String formatInputMissionSelectCommand() {
+    String formatInputMissionSelectCommands() {
         final String contextDelimiter = "#############################################";
-        final String enterCommand = "과정, 레벨, 미션을 선택하세요.";
-        final String exampleCommand = "ex) 백엔드, 레벨1, 자동차경주";
+        final String enterCommands = "과정, 레벨, 미션을 선택하세요.";
+        final String exampleCommands = "ex) 백엔드, 레벨1, 자동차경주";
 
         return contextDelimiter + "%n"
                 + formatCourses() + "%n"
                 + formatMissions() + "%n"
                 + contextDelimiter + "%n"
-                + enterCommand + "%n"
-                + exampleCommand;
+                + enterCommands + "%n"
+                + exampleCommands;
     }
 
     private String formatCourses() {

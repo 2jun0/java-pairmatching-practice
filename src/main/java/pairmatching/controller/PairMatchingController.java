@@ -19,6 +19,6 @@ public class PairMatchingController {
     }
 
     private void startPairMatch() {
-        String command = inputView.inputMissionSelectCommand();
+        String commands = inputView.inputMissionSelectCommands();
     }
 }
