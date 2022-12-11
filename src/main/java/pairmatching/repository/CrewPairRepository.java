@@ -1,6 +1,7 @@
 package pairmatching.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class CrewPairRepository {
         levelToCrewPairs.get(level).add(crewPair);
     }
 
-    public boolean contains(Level level, CrewPair crewPair) {
-        return levelToCrewPairs.get(level).contains(crewPair);
+    public List<CrewPair> findByLevel(Level level) {
+        return Collections.unmodifiableList(levelToCrewPairs.get(level));
     }
 }
