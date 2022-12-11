@@ -6,9 +6,23 @@ import java.util.function.Supplier;
 public class InputView {
 
     private final InputValidator inputValidator;
+    private final InputFormatter inputFormatter;
 
-    public InputView(InputValidator inputValidator) {
+    public InputView(InputValidator inputValidator, InputFormatter inputFormatter) {
         this.inputValidator = inputValidator;
+        this.inputFormatter = inputFormatter;
+    }
+
+    public String inputMissionSelectCommand() {
+        return repeatUntilSuccess(this::tryInputMissionSelectCommand);
+    }
+
+    private String tryInputMissionSelectCommand() {
+        String formattedMessage = inputFormatter.formatInputMissionSelectCommand();
+        printLine(formattedMessage);
+
+        String command = readLine();
+        return command;
     }
 
     public String inputFunctionSelectCommand() {
