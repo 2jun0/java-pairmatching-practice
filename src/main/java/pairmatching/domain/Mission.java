@@ -4,6 +4,7 @@ import static java.util.Arrays.*;
 import static java.util.stream.Collectors.*;
 import static pairmatching.domain.Level.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,8 @@ public enum Mission {
 
     private static final Map<Level, List<Mission>> levelToMissions =
             stream(values()).collect(groupingBy(Mission::level));
+    private static final Map<String, Mission> labelToMission =
+            stream(values()).collect(toUnmodifiableMap(Mission::label, mission -> mission));
 
     Mission(String label, Level level) {
         this.label = label;
@@ -31,7 +34,11 @@ public enum Mission {
     }
 
     public static List<Mission> findByLevel(Level level) {
-        return levelToMissions.get(level);
+        return Collections.unmodifiableList(levelToMissions.get(level));
+    }
+
+    public static Mission findByLabel(String label) {
+        return labelToMission.get(label);
     }
 
     public String label() {

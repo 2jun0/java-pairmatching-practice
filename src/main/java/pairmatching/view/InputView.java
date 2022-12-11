@@ -2,27 +2,31 @@ package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.function.Supplier;
+import pairmatching.dto.MissionSelectCommandDTO;
 
 public class InputView {
 
     private final InputValidator inputValidator;
     private final InputFormatter inputFormatter;
+    private final InputParser inputParser;
 
-    public InputView(InputValidator inputValidator, InputFormatter inputFormatter) {
+    public InputView(InputValidator inputValidator, InputFormatter inputFormatter,
+            InputParser inputParser) {
         this.inputValidator = inputValidator;
         this.inputFormatter = inputFormatter;
+        this.inputParser = inputParser;
     }
 
-    public String inputMissionSelectCommands() {
+    public MissionSelectCommandDTO inputMissionSelectCommands() {
         return repeatUntilSuccess(this::tryInputMissionSelectCommands);
     }
 
-    private String tryInputMissionSelectCommands() {
+    private MissionSelectCommandDTO tryInputMissionSelectCommands() {
         String formattedMessage = inputFormatter.formatInputMissionSelectCommands();
         printLine(formattedMessage);
 
         String commands = readLine();
-        return commands;
+        return inputParser.parseMissionSelectCommands(commands);
     }
 
     public String inputFunctionSelectCommand() {

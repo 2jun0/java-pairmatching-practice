@@ -1,5 +1,6 @@
 package pairmatching.controller;
 
+import pairmatching.dto.MissionSelectCommandDTO;
 import pairmatching.view.InputView;
 
 public class PairMatchingController {
@@ -19,6 +20,6 @@ public class PairMatchingController {
     }
 
     private void startPairMatch() {
-        String commands = inputView.inputMissionSelectCommands();
+        MissionSelectCommandDTO commands = inputView.inputMissionSelectCommands();
     }
 }
