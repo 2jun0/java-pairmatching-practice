@@ -9,12 +9,13 @@ import pairmatching.view.InputFormatter;
 import pairmatching.view.InputParser;
 import pairmatching.view.InputValidator;
 import pairmatching.view.InputView;
+import pairmatching.view.OutputView;
 
 public class Application {
 
     public static void main(String[] args) {
         PairMatchingController controller = new PairMatchingController(
-                inputView(), crewPairService());
+                inputView(), outputView(), crewPairService());
         controller.start();
     }
 
@@ -32,5 +33,9 @@ public class Application {
         InputFormatter inputFormatter = new InputFormatter();
 
         return new InputView(inputValidator, inputFormatter, inputParser);
+    }
+
+    private static OutputView outputView() {
+        return new OutputView();
     }
 }

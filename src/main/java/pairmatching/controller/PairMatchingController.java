@@ -7,15 +7,18 @@ import pairmatching.domain.Mission;
 import pairmatching.dto.MissionSelectCommandDto;
 import pairmatching.service.CrewPairService;
 import pairmatching.view.InputView;
+import pairmatching.view.OutputView;
 
 public class PairMatchingController {
 
     private final InputView inputView;
-     private final CrewPairService crewPairService;
+    private final OutputView outputView;
+    private final CrewPairService crewPairService;
 
     public PairMatchingController(InputView inputView,
-            CrewPairService crewPairService) {
+            OutputView outputView, CrewPairService crewPairService) {
         this.inputView = inputView;
+        this.outputView = outputView;
         this.crewPairService = crewPairService;
     }
 
@@ -34,5 +37,7 @@ public class PairMatchingController {
 
         List<CrewPair> crewPairs = crewPairService.pairMatch(course, mission);
         crewPairService.saveCrewPairs(crewPairs);
+
+        outputView.printPariMatchResult(crewPairs);
     }
 }
