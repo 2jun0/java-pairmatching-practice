@@ -16,6 +16,10 @@ public class OutputView {
         }
     }
 
+    public void printResetComplete() {
+        printLine("초기화 되었습니다.");
+    }
+
     private void printLine(String line) {
         System.out.println(line);
     }

@@ -29,4 +29,8 @@ public class CrewPairRepository {
                 .filter(crewPair -> crewPair.mission() == mission)
                 .collect(Collectors.toUnmodifiableList());
     }
+
+    public void clearAll() {
+        crewPairs.clear();
+    }
 }

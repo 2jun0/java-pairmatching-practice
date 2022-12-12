@@ -78,4 +78,8 @@ public class CrewPairService {
     public List<CrewPair> searchPairs(Course course, Mission mission) {
         return crewPairRepository.findByCourseAndMission(course, mission);
     }
+
+    public void resetPairs() {
+        crewPairRepository.clearAll();
+    }
 }

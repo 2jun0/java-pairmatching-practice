@@ -23,14 +23,28 @@ public class PairMatchingController {
     }
 
     public void start() {
-        String command = inputView.inputFunctionSelectCommand();
+        while (true) {
+            String command = inputView.inputFunctionSelectCommand();
 
+            if ("Q".equals(command)) {
+                break;
+            }
+
+            runFunction(command);
+        }
+    }
+
+    private void runFunction(String command) {
         if ("1".equals(command)) {
             startPairMatch();
         }
 
         if ("2".equals(command)) {
             searchPairs();
+        }
+
+        if ("3".equals(command)) {
+            resetPairs();
         }
     }
 
@@ -52,5 +66,10 @@ public class PairMatchingController {
 
         List<CrewPair> crewPairs = crewPairService.searchPairs(course, mission);
         outputView.printPariMatchResult(crewPairs);
+    }
+
+    private void resetPairs() {
+        crewPairService.resetPairs();
+        outputView.printResetComplete();
     }
 }
