@@ -3,7 +3,7 @@ package pairmatching.view;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
-import pairmatching.dto.MissionSelectCommandDTO;
+import pairmatching.dto.MissionSelectCommandDto;
 
 public class InputParser {
 
@@ -13,12 +13,12 @@ public class InputParser {
         this.inputValidator = inputValidator;
     }
 
-    MissionSelectCommandDTO parseMissionSelectCommands(String commandsStr) {
+    MissionSelectCommandDto parseMissionSelectCommands(String commandsStr) {
         String[] commands = commandsStr.split(",");
 
         inputValidator.validateMissionSelectCommands(commands);
 
-        return new MissionSelectCommandDTO(
+        return new MissionSelectCommandDto(
                 Course.findByLabel(commands[0].trim()),
                 Level.findByLabel(commands[1].trim()),
                 Mission.findByLabel(commands[2].trim()));

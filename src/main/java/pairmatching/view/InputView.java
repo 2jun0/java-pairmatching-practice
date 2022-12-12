@@ -2,7 +2,7 @@ package pairmatching.view;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.function.Supplier;
-import pairmatching.dto.MissionSelectCommandDTO;
+import pairmatching.dto.MissionSelectCommandDto;
 
 public class InputView {
 
@@ -17,11 +17,11 @@ public class InputView {
         this.inputParser = inputParser;
     }
 
-    public MissionSelectCommandDTO inputMissionSelectCommands() {
+    public MissionSelectCommandDto inputMissionSelectCommands() {
         return repeatUntilSuccess(this::tryInputMissionSelectCommands);
     }
 
-    private MissionSelectCommandDTO tryInputMissionSelectCommands() {
+    private MissionSelectCommandDto tryInputMissionSelectCommands() {
         String formattedMessage = inputFormatter.formatInputMissionSelectCommands();
         printLine(formattedMessage);
 

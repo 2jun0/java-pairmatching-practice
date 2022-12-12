@@ -4,13 +4,13 @@ import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Mission;
 
-public class MissionSelectCommandDTO {
+public class MissionSelectCommandDto {
 
     private final Course course;
     private final Level level;
     private final Mission mission;
 
-    public MissionSelectCommandDTO(Course course, Level level, Mission mission) {
+    public MissionSelectCommandDto(Course course, Level level, Mission mission) {
         this.course = course;
         this.level = level;
         this.mission = mission;
