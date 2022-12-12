@@ -14,11 +14,11 @@ public class InputFormatter {
         final String enterCommands = "과정, 레벨, 미션을 선택하세요.";
         final String exampleCommands = "ex) 백엔드, 레벨1, 자동차경주";
 
-        return contextDelimiter + "%n"
-                + formatCourses() + "%n"
-                + formatMissions() + "%n"
-                + contextDelimiter + "%n"
-                + enterCommands + "%n"
+        return contextDelimiter + "\n"
+                + formatCourses() + "\n"
+                + formatMissions() + "\n"
+                + contextDelimiter + "\n"
+                + enterCommands + "\n"
                 + exampleCommands;
     }
 
@@ -33,9 +33,9 @@ public class InputFormatter {
     private String formatMissions() {
         String formattedMissions = stream(Level.values())
                 .map(this::formatMissionsForLevel)
-                .collect(joining("%n"));
+                .collect(joining("\n"));
 
-        return "미션:%n" + formattedMissions;
+        return "미션:\n" + formattedMissions;
     }
 
     private String formatMissionsForLevel(Level level) {
