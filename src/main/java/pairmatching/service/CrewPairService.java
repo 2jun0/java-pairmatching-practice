@@ -1,6 +1,5 @@
 package pairmatching.service;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +8,7 @@ import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
 import pairmatching.domain.CrewPair;
 import pairmatching.domain.Level;
+import pairmatching.domain.Mission;
 import pairmatching.repository.CrewPairRepository;
 
 public class CrewPairService {
@@ -21,11 +21,11 @@ public class CrewPairService {
         this.crewService = crewService;
     }
 
-    public List<CrewPair> pairMatch(Level level, Course course) {
+    public List<CrewPair> pairMatch(Course course, Mission mission) {
         for (int i = 0; i < 3; i++) {
-            List<CrewPair> crewPairs = tryPairMatch(course);
+            List<CrewPair> crewPairs = tryPairMatch(course, mission);
 
-            if (!isAlreadyPairMatchedMany(level, crewPairs)) {
+            if (!isAlreadyPairMatchedMany(course, mission.level(), crewPairs)) {
                 return crewPairs;
             }
         }
@@ -33,41 +33,42 @@ public class CrewPairService {
         throw new IllegalArgumentException("폐어 매칭 실패");
     }
 
-    private List<CrewPair> tryPairMatch(Course course) {
+    private List<CrewPair> tryPairMatch(Course course, Mission mission) {
         List<Crew> crews = crewService.getCrews(course);
         List<CrewPair> crewPairs = new ArrayList<>();
 
         for (int i = 0; i < crews.size(); i+=2) {
             if (i == crews.size() - 3) {
-                crewPairs.add(new CrewPair(crews.get(i), crews.get(i+1), crews.get(i+2)));
+                crewPairs.add(new CrewPair(course, mission, crews.get(i), crews.get(i+1), crews.get(i+2)));
                 break;
             }
 
-            crewPairs.add(new CrewPair(crews.get(i), crews.get(i+1)));
+            crewPairs.add(new CrewPair(course, mission, crews.get(i), crews.get(i+1)));
         }
 
         return crewPairs;
     }
 
-    public void saveCrewPairs(Level level, List<CrewPair> crewPairs) {
+    public void saveCrewPairs(List<CrewPair> crewPairs) {
         for (CrewPair crewPair : crewPairs) {
-            crewPairRepository.save(level, crewPair);
+            crewPairRepository.save(crewPair);
         }
     }
 
-    private boolean isAlreadyPairMatchedMany(Level level, List<CrewPair> crewPairs) {
-        return crewPairs.stream()
-                .anyMatch(crewPair -> isAlreadyPairMatchedOne(level, crewPair));
+    private boolean isAlreadyPairMatchedMany(Course course, Level level, List<CrewPair> crewPairs) {
+        List<CrewPair> savedPairs = crewPairRepository.findByCourseAndLevel(course, level);
+
+        for (CrewPair crewPair : crewPairs) {
+            if (savedPairs.stream().anyMatch(
+                    savedPair -> hasIntersectionWithCrews(savedPair.crews(), crewPair.crews()))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private boolean isAlreadyPairMatchedOne(Level level, CrewPair crewPair) {
-        List<CrewPair> crewPairs = crewPairRepository.findByLevel(level);
-
-        return crewPairs.stream()
-                .anyMatch(pair -> hasIntersectionWithCrews(pair.crews(), crewPair.crews()));
-    }
-
-    private boolean hasIntersectionWithCrews(Set<Crew> crews1, Set<Crew> crews2) {
+    private boolean hasIntersectionWithCrews(List<Crew> crews1, List<Crew> crews2) {
         Set<Crew> intersection = new HashSet<>(crews1);
         intersection.retainAll(crews2);
 

@@ -1,28 +1,24 @@
 package pairmatching.repository;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
+import pairmatching.domain.Course;
 import pairmatching.domain.CrewPair;
 import pairmatching.domain.Level;
 
 public class CrewPairRepository {
 
-    private final Map<Level, List<CrewPair>> levelToCrewPairs = new EnumMap<>(Level.class);
+    private final List<CrewPair> crewPairs = new ArrayList<>();
 
-    public CrewPairRepository() {
-        for (Level level : Level.values()) {
-            levelToCrewPairs.put(level, new ArrayList<>());
-        }
+    public void save(CrewPair crewPair) {
+        crewPairs.add(crewPair);
     }
 
-    public void save(Level level, CrewPair crewPair) {
-        levelToCrewPairs.get(level).add(crewPair);
-    }
-
-    public List<CrewPair> findByLevel(Level level) {
-        return Collections.unmodifiableList(levelToCrewPairs.get(level));
+    public List<CrewPair> findByCourseAndLevel(Course course, Level level) {
+        return crewPairs.stream()
+                .filter(crewPair -> crewPair.course() == course)
+                .filter(crewPair -> crewPair.mission().level() == level)
+                .collect(Collectors.toUnmodifiableList());
     }
 }

@@ -1,40 +1,34 @@
 package pairmatching.domain;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 
 public class CrewPair {
 
-    private final Set<Crew> crews;
+    private final List<Crew> crews;
+    private final Course course;
+    private final Mission mission;
 
-    public CrewPair(Crew crew1, Crew crew2) {
-        crews = Set.of(crew1, crew2);
+    public CrewPair(Course course, Mission mission, Crew crew1, Crew crew2) {
+        this.course = course;
+        this.mission = mission;
+        crews = List.of(crew1, crew2);
     }
 
-    public CrewPair(Crew crew1, Crew crew2, Crew crew3) {
-        crews = Set.of(crew1, crew2, crew3);
+    public CrewPair(Course course, Mission mission, Crew crew1, Crew crew2, Crew crew3) {
+        this.course = course;
+        this.mission = mission;
+        crews = List.of(crew1, crew2, crew3);
     }
 
-    public Set<Crew> crews() {
+    public List<Crew> crews() {
         return crews;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        CrewPair crewPair = (CrewPair) o;
-
-        return Objects.equals(crews, crewPair.crews);
+    public Mission mission() {
+        return mission;
     }
 
-    @Override
-    public int hashCode() {
-        return crews != null ? crews.hashCode() : 0;
+    public Course course() {
+        return course;
     }
 }

@@ -13,11 +13,8 @@ import pairmatching.view.InputView;
 public class Application {
 
     public static void main(String[] args) {
-        CrewService crewService = crewService();
-        CrewPairService crewPairService = crewPairService(crewService);
-
         PairMatchingController controller = new PairMatchingController(
-                inputView(), crewService, crewPairService);
+                inputView(), crewPairService());
         controller.start();
     }
 
@@ -25,8 +22,8 @@ public class Application {
         return new CrewService(new CrewRepository());
     }
 
-    private static CrewPairService crewPairService(CrewService crewService) {
-        return new CrewPairService(new CrewPairRepository(), crewService);
+    private static CrewPairService crewPairService() {
+        return new CrewPairService(new CrewPairRepository(), crewService());
     }
 
     private static InputView inputView() {
