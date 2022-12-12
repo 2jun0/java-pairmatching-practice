@@ -28,6 +28,10 @@ public class PairMatchingController {
         if ("1".equals(command)) {
             startPairMatch();
         }
+
+        if ("2".equals(command)) {
+            searchPairs();
+        }
     }
 
     private void startPairMatch() {
@@ -38,6 +42,15 @@ public class PairMatchingController {
         List<CrewPair> crewPairs = crewPairService.pairMatch(course, mission);
         crewPairService.saveCrewPairs(crewPairs);
 
+        outputView.printPariMatchResult(crewPairs);
+    }
+
+    private void searchPairs() {
+        MissionSelectCommandDto commandDto = inputView.inputMissionSelectCommands();
+        Course course = commandDto.course();
+        Mission mission = commandDto.mission();
+
+        List<CrewPair> crewPairs = crewPairService.searchPairs(course, mission);
         outputView.printPariMatchResult(crewPairs);
     }
 }

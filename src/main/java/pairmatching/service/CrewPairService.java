@@ -74,4 +74,8 @@ public class CrewPairService {
 
         return intersection.size() > 1;
     }
+
+    public List<CrewPair> searchPairs(Course course, Mission mission) {
+        return crewPairRepository.findByCourseAndMission(course, mission);
+    }
 }

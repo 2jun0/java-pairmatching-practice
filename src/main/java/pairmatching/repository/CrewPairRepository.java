@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import pairmatching.domain.Course;
 import pairmatching.domain.CrewPair;
 import pairmatching.domain.Level;
+import pairmatching.domain.Mission;
 
 public class CrewPairRepository {
 
@@ -19,6 +20,13 @@ public class CrewPairRepository {
         return crewPairs.stream()
                 .filter(crewPair -> crewPair.course() == course)
                 .filter(crewPair -> crewPair.mission().level() == level)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    public List<CrewPair> findByCourseAndMission(Course course, Mission mission) {
+        return crewPairs.stream()
+                .filter(crewPair -> crewPair.course() == course)
+                .filter(crewPair -> crewPair.mission() == mission)
                 .collect(Collectors.toUnmodifiableList());
     }
 }
