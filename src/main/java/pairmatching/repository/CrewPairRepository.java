@@ -33,4 +33,9 @@ public class CrewPairRepository {
     public void clearAll() {
         crewPairs.clear();
     }
+
+    public void clearByCourseAndMission(Course course, Mission mission) {
+        crewPairs.removeIf(
+                crewPair -> crewPair.course() == course && crewPair.mission() == mission);
+    }
 }

@@ -23,4 +23,16 @@ public class InputParser {
                 Level.findByLabel(commands[1].trim()),
                 Mission.findByLabel(commands[2].trim()));
     }
+
+    boolean parseReMatchAnswer(String answer) {
+        if ("네".equals(answer)) {
+            return true;
+        }
+
+        if ("아니오".equals(answer)) {
+            return false;
+        }
+
+        throw new IllegalArgumentException("네 | 아니오 중 하나만 입력해주세요.");
+    }
 }

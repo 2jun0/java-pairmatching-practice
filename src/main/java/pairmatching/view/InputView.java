@@ -17,18 +17,6 @@ public class InputView {
         this.inputParser = inputParser;
     }
 
-    public MissionSelectCommandDto inputMissionSelectCommands() {
-        return repeatUntilSuccess(this::tryInputMissionSelectCommands);
-    }
-
-    private MissionSelectCommandDto tryInputMissionSelectCommands() {
-        String formattedMessage = inputFormatter.formatInputMissionSelectCommands();
-        printLine(formattedMessage);
-
-        String commands = readLine();
-        return inputParser.parseMissionSelectCommands(commands);
-    }
-
     public String inputFunctionSelectCommand() {
         return repeatUntilSuccess(this::tryInputFunctionSelectCommand);
     }
@@ -44,6 +32,30 @@ public class InputView {
         inputValidator.validateFunctionSelectCommand(command);
 
         return command;
+    }
+
+    public MissionSelectCommandDto inputMissionSelectCommands() {
+        return repeatUntilSuccess(this::tryInputMissionSelectCommands);
+    }
+
+    private MissionSelectCommandDto tryInputMissionSelectCommands() {
+        String formattedMessage = inputFormatter.formatInputMissionSelectCommands();
+        printLine(formattedMessage);
+
+        String commands = readLine();
+        return inputParser.parseMissionSelectCommands(commands);
+    }
+
+    public boolean askReMatch() {
+        return repeatUntilSuccess(this::tryAskReMatch);
+    }
+
+    private boolean tryAskReMatch() {
+        printLine("매칭 정보가 있습니다. 다시 매칭하시겠습니까?");
+        printLine("네 | 아니오");
+
+        String answer = readLine();
+        return inputParser.parseReMatchAnswer(answer);
     }
 
     private String readLine() {

@@ -21,6 +21,14 @@ public class CrewPairService {
         this.crewService = crewService;
     }
 
+    public boolean hasBeenPairMatched(Course course, Mission mission) {
+        return !searchPairs(course, mission).isEmpty();
+    }
+
+    public void clearPairsByCourseAndMission(Course course, Mission mission) {
+        crewPairRepository.clearByCourseAndMission(course, mission);
+    }
+
     public List<CrewPair> pairMatch(Course course, Mission mission) {
         for (int i = 0; i < 3; i++) {
             List<CrewPair> crewPairs = tryPairMatch(course, mission);
@@ -49,12 +57,6 @@ public class CrewPairService {
         return crewPairs;
     }
 
-    public void saveCrewPairs(List<CrewPair> crewPairs) {
-        for (CrewPair crewPair : crewPairs) {
-            crewPairRepository.save(crewPair);
-        }
-    }
-
     private boolean isAlreadyPairMatchedMany(Course course, Level level, List<CrewPair> crewPairs) {
         List<CrewPair> savedPairs = crewPairRepository.findByCourseAndLevel(course, level);
 
@@ -73,6 +75,12 @@ public class CrewPairService {
         intersection.retainAll(crews2);
 
         return intersection.size() > 1;
+    }
+
+    public void saveCrewPairs(List<CrewPair> crewPairs) {
+        for (CrewPair crewPair : crewPairs) {
+            crewPairRepository.save(crewPair);
+        }
     }
 
     public List<CrewPair> searchPairs(Course course, Mission mission) {

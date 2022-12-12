@@ -53,10 +53,26 @@ public class PairMatchingController {
         Course course = commandDto.course();
         Mission mission = commandDto.mission();
 
+        if (!checkHavingBeenPairMatched(course, mission)) {
+            return;
+        }
+
         List<CrewPair> crewPairs = crewPairService.pairMatch(course, mission);
         crewPairService.saveCrewPairs(crewPairs);
 
         outputView.printPariMatchResult(crewPairs);
+    }
+
+    private boolean checkHavingBeenPairMatched(Course course, Mission mission) {
+        if (crewPairService.hasBeenPairMatched(course, mission)) {
+            if (!inputView.askReMatch()) {
+                return false;
+            }
+
+            crewPairService.clearPairsByCourseAndMission(course, mission);
+        }
+
+        return true;
     }
 
     private void searchPairs() {
